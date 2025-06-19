@@ -1,44 +1,132 @@
-.featured-section{
+.featured-section {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 3fr; // Desktop layout
     align-items: center;
+    gap: 1.5rem; // Convert fixed gap to rem (e.g., 24px / 16 = 1.5rem)
+    padding: 6.25rem 5vw; // Vertical padding 100px = 6.25rem, horizontal matches global 5vw
 
-    img{
-        clip-path: inset(0% 0% 0% 0%);
-
+    img {
+        // Initial clip-path is set by GSAP, not here.
+        // We ensure images are responsive by default.
+        max-width: 100%;
+        height: auto;
+        display: block; // Removes extra space below inline images
     }
-    h6{
-        font-size: 22px;
+
+    h6 {
+        font-size: 1.375rem; // Converted 22px to rem (22/16 = 1.375rem)
         text-transform: uppercase;
         font-weight: 500;
         color: #5D6D7E;
+        margin: 0; // Remove default h6 margins for better control
     }
 
-    .featured-row-layout, .featured-column-layout{ 
+    .featured-row-layout,
+    .featured-column-layout {
         display: grid;
-        gap: 10px;
+        gap: 0.625rem; // Converted 10px to rem (10/16 = 0.625rem)
     }
 
-    .featured-row-layout{
+    .featured-row-layout {
         grid-template-rows: repeat(2, auto);
-        img{
-            width: 100%;
-            object-fit: cover;
-            
-        }
+        // Image sizing now handled by generic `img` rule for `max-width: 100%`
+        // object-fit: cover for these images if they are in containers with fixed aspect ratio.
     }
 
-    .featured-column-layout{
-        grid-template-columns: 100px auto;
+    .featured-column-layout {
+        grid-template-columns: 6.25rem auto; // Converted 100px to rem (100/16 = 6.25rem)
         align-items: flex-end;
-        img{
+
+        img {
+            // Adjust height, it's very tall on desktop
             width: 100%;
-            height: 125vh;
+            height: 100vh; // Start with 100vh, then adjust down for mobile
             object-fit: cover;
             object-position: top;
         }
-        h6{
-            transform: rotate(-90deg)
+
+        h6 {
+            transform: rotate(-90deg); // Keep for desktop
+            white-space: nowrap; // Prevent text from wrapping when rotated
+            transform-origin: bottom left; // Rotate around the bottom left corner
+        }
+    }
+}
+
+// Media Queries for Featured Section Responsiveness
+
+// Medium screens (e.g., Tablets, small laptops)
+@media (max-width: 1024px) {
+    .featured-section {
+        grid-template-columns: 1fr 2fr; // Slightly change ratio for more balance
+        gap: 1rem; // Smaller gap
+        padding: 5rem 4vw; // Adjust vertical padding and use smaller vw
+    }
+
+    h6 {
+        font-size: 1.2rem; // Slightly smaller h6 font (19.2px)
+    }
+
+    .featured-column-layout {
+        grid-template-columns: 4rem auto; // Smaller first column for rotated text
+        img {
+            height: 90vh; // Reduce image height
+        }
+    }
+}
+
+// Small screens (e.g., Larger phones in landscape, smaller tablets)
+@media (max-width: 768px) {
+    .featured-section {
+        grid-template-columns: 1fr; // Stack columns vertically
+        grid-template-rows: auto auto; // Two rows for the stacked content
+        gap: 3rem; // More gap between the stacked sections
+        padding: 4rem 3vw; // Adjust padding
+    }
+
+    .featured-row-layout,
+    .featured-column-layout {
+        display: flex; // Change to flex for simpler stacking within these layouts
+        flex-direction: column;
+        gap: 0.8rem; // Adjust inner gap
+    }
+
+    .featured-column-layout {
+        grid-template-columns: auto; // Remove specific column layout for text + image
+        align-items: flex-start; // Align content to the start
+
+        h6 {
+            transform: none; // REMOVE ROTATION on mobile for better readability
+            white-space: normal; // Allow text to wrap
+            text-align: left; // Align text properly
+            order: -1; // Place the h6 above the image in its column
+            font-size: 1.1rem; // Adjust font size
+        }
+        img {
+            height: 60vh; // Significantly reduce image height for mobile
+            object-position: center; // Center image content
+        }
+    }
+
+    h6 {
+        font-size: 1rem; // Base h6 font size for mobile
+    }
+}
+
+// Very small screens (e.g., Phones)
+@media (max-width: 480px) {
+    .featured-section {
+        gap: 2rem; // Slightly less gap for very small screens
+        padding: 3rem 2vw; // Minimal padding
+    }
+
+    h6 {
+        font-size: 0.9rem; // Even smaller h6 font
+    }
+
+    .featured-column-layout {
+        img {
+            height: 50vh; // Further reduce image height
         }
     }
 }

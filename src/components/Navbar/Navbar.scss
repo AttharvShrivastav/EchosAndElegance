@@ -1,24 +1,116 @@
-
-
-.navbar{
+.navbar {
     display: flex;
     justify-content: space-between;
-    // width: 100%;
-    padding: 50px 0;
-    font-size: 24px;
+    align-items: center; // Vertically align items
+    padding: 3.125rem 0; // Converted 50px to rem (50/16=3.125rem)
+    font-size: 1.5rem; // Converted 24px to rem (24/16=1.5rem)
     letter-spacing: 1px;
     font-family: 'Syncopate', sans-serif;
     color: #E0E0E0;
     font-weight: 600;
     text-transform: uppercase;
+    position: relative; // Needed if you later add an absolute positioned mobile menu
+    z-index: 99; // Ensure navbar is above other content
+
+    // Navbar sections layout
+    .navbar-left,
+    .navbar-right {
+        flex: 1; // Allows them to take equal space initially
+        display: flex; // To control alignment of their content
+    }
+
+    .navbar-left {
+        justify-content: flex-start; // "Menu" to the far left
+    }
+
+    .navbar-center {
+        flex: 2; // Gives more space to the center item (logo + title)
+        display: flex;
+        align-items: center;
+        justify-content: center; // Center the logo and title
+        gap: 15px; // Space between logo and text
+    }
+
+    .navbar-right {
+        justify-content: flex-end; // "Music" to the far right
+    }
 }
 
-.logo{
-    height: 80px;
-    width: 80px;
-    overflow: hidden;
+.logo {
+    height: 5rem; // Converted 80px to rem (80/16=5rem)
+    width: 5rem; // Converted 80px to rem (80/16=5rem)
+    overflow: hidden; // Ensures image stays within bounds
+    display: flex; // Use flex to center the image if it's smaller
+    align-items: center;
+    justify-content: center;
 }
 
-.logo img{
-    object-fit: cover;
+.logo img {
+    max-width: 100%; // Make image responsive
+    height: auto; // Maintain aspect ratio
+    display: block; // Remove extra space below image
+    object-fit: cover; // Ensures image covers the logo div without distortion if aspect ratios differ
+}
+
+// Media Queries for Navbar Responsiveness
+
+// Tablet / Small Laptop
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 2rem 0; // Reduce vertical padding
+        font-size: 1.25rem; // Smaller font size for Navbar text (20px)
+
+        .navbar-center {
+            gap: 10px; // Smaller gap
+        }
+    }
+    .logo {
+        height: 4rem; // Smaller logo (64px)
+        width: 4rem;
+    }
+}
+
+// Mobile
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: row; // Keep row layout for simplicity (Menu - Logo - Music)
+        justify-content: space-between;
+        padding: 1.5rem 0; // Even less vertical padding
+        font-size: 1rem; // Smaller font size (16px)
+        letter-spacing: 0.5px; // Reduce letter spacing
+
+        .navbar-center {
+            flex: none; // Don't let it flex
+            order: 2; // Place center item in the middle
+        }
+        .navbar-left {
+            order: 1; // Place left item first
+            flex: 1; // Allow it to flex
+        }
+        .navbar-right {
+            order: 3; // Place right item last
+            flex: 1; // Allow it to flex
+        }
+    }
+
+    .logo {
+        height: 3.5rem; // Smaller logo (56px)
+        width: 3.5rem;
+    }
+
+    .navbar-title-text {
+        display: none; // Hide "Echoes And Elegance" text on small mobile
+    }
+}
+
+// Very Small Mobile
+@media (max-width: 480px) {
+    .navbar {
+        padding: 1rem 0; // Minimal vertical padding
+        font-size: 0.875rem; // Even smaller font size (14px)
+    }
+    .logo {
+        height: 3rem; // Smallest logo (48px)
+        width: 3rem;
+    }
 }

@@ -58,7 +58,7 @@ function GalleryItem({ src, category, subtitle, title, updateActiveImage, index 
       <div className="gallery-item">
         <div className="gallery-item-info">
           <h1 className="gallery-info-title">{title}</h1>
-          <h6 className="gallery-info-subtitle">{subtitle}</h6>
+          <h6 className="gallery-info-subtitle">{subtitle}</h6> {/* Changed from h2 to h6 in your JSX previously, adapting SCSS for it */}
           <p className="gallery-info-category">{category}</p>
         </div>
         <div

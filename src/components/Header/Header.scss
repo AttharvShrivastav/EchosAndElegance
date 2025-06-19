@@ -1,34 +1,122 @@
-$main-text : #E0E0E0;
+// Header.scss
 
+// Assuming $main-text is defined globally, if not, define it here:
+$main-text: #E0E0E0;
 
 .header-container {
     position: relative;
-    // border: 1px solid teal; 
-      overflow: hidden; 
-    .header-menu{
-        position: absolute;
-        left: 10px;
-        top: 100px;
+    // Set a minimum height for the hero section to ensure content is visible
+    min-height: 100vh; // Occupy full viewport height on desktop
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Default: Center content vertically
+    align-items: center; // Center content horizontally
+
+    // Padding for the header container. This determines the overall content width.
+    // Assuming this section itself is full width, so padding controls inner content.
+    padding: 0 5vw; // Matches global .main-container padding logic
+
+    overflow: hidden; // Crucial for the split text animation to appear from bottom without flicker.
+
+    .header-menu {
+        position: absolute; // Keeps it out of the main flex flow
+        left: 5vw; // Aligned with your global padding
+        top: 6.25rem; // Converted 100px to rem (100/16=6.25rem). Scales with html font-size.
         letter-spacing: 1px;
         font-family: "Syncopate", sans-serif;
         color: $main-text;
         text-transform: uppercase;
+        font-size: 1rem; // Base font size for menu items
 
-        p{
-            margin: 10px 0;
-            text-decoration: none;
+        p {
+            margin: 0.625rem 0; // Converted 10px to rem (10/16=0.625rem)
+            text-decoration: none; // Assuming these might be links later
+            cursor: pointer; // Indicate interactivity
         }
-
     }
 
-    #header-text{
-        margin: 80px;
-        font-size: 14vw;
+    #header-text {
+        font-size: 14vw; // Fluid font size based on viewport width
         text-transform: uppercase;
-        text-align: center;
+        text-align: center; // Important for centering the text
         font-family: "Bai Jamjuree", sans-serif;
         font-weight: 600;
         color: $main-text;
-        overflow: hidden;
+        line-height: 1em; // Tight line height for large headings
+        // overflow: hidden; // This overflow is generally not needed here because SplitText animates children
+                          // and the parent .header-container has overflow: hidden.
+        max-width: 90vw; // Prevent text from becoming excessively wide on huge screens
+                         // or ensure it stays within a reasonable content width
+        margin: 0; // Remove default margins, spacing controlled by container padding/flex
+    }
+}
+
+// Media Queries for Header Responsiveness
+
+// Adjustments for very large screens (e.g., 1440px or larger)
+// To cap the font size and prevent it from becoming absurdly large
+@media (min-width: 1441px) {
+    #header-text {
+        font-size: 200px; // Cap the font size at a maximum pixel value
+        line-height: 180px; // Adjust line height accordingly
+    }
+}
+
+// Medium screens (e.g., Tablets, small laptops)
+@media (max-width: 1024px) {
+    .header-container {
+        min-height: 80vh; // Reduce height on smaller screens
+        padding: 0 4vw; // Adjust horizontal padding
+    }
+    .header-menu {
+        top: 4rem; // Adjust top position for smaller screens (64px)
+        left: 4vw; // Adjust left position
+        font-size: 0.9rem; // Slightly smaller menu text (14.4px)
+    }
+    #header-text {
+        font-size: 10vw; // Reduce fluid font size
+        line-height: 0.9; // Adjust line height for the new vw size
+    }
+}
+
+// Small screens (e.g., Larger phones in landscape, smaller tablets)
+@media (max-width: 768px) {
+    .header-container {
+        min-height: 70vh; // Further reduce height
+        padding: 0 3vw; // Adjust horizontal padding
+        justify-content: flex-end; // PUSHES content towards the bottom
+        padding-bottom: 5vh; // Add significant padding at the bottom to lift text off edge
+    }
+    .header-menu {
+        display: none; // RECOMMENDED: Hide the menu on mobile if using a hamburger or simplified nav
+        // If you don't use a hamburger and want to keep it:
+        // position: static; // Remove absolute positioning
+        // display: flex;
+        // flex-direction: column;
+        // align-items: flex-start;
+        // margin-bottom: 2rem; // Space below menu before main text
+        // font-size: 0.8rem; // Smaller menu text (12.8px)
+        // p { margin: 0.5rem 0; }
+    }
+    #header-text {
+        font-size: 12vw; // Adjust font size for mobile
+        line-height: 1.1; // Slightly more line-height for readability on mobile
+        // margin-top: auto; // This would push it to the bottom if it's the ONLY flex item,
+                           // but justify-content: flex-end on parent is cleaner.
+    }
+}
+
+// Very small screens (e.g., Phones in portrait)
+@media (max-width: 480px) {
+    .header-container {
+        min-height: 60vh; // Smallest height for hero
+        padding: 0 2vw; // Minimal horizontal padding
+        justify-content: flex-end; // Keep content at the bottom
+        padding-bottom: 4vh; // Adjust padding for smaller screens
+    }
+    // If header-menu is hidden, no changes needed here.
+    #header-text {
+        font-size: 15vw; // Increase vw to make it larger relative to very small screen width
+        line-height: 1.1; // Ensure it's readable
     }
 }

@@ -1,12 +1,89 @@
-.about-section{
-    p{
-        font-size: 70px;
-        line-height: 1.12;
+// About.scss
 
+// Assuming $main-text and $bg-color are available globally or imported here
+$main-text: #E0E0E0;
+$bg-color: #0A0A0A; // Example background color
+
+.about-section {
+    // This padding now controls the content area. The background will extend only this far.
+    // Use your global section padding if you have it (e.g., from App.scss or index.scss)
+    // If not, explicitly define default desktop padding here.
+    padding: 100px 5vw; // Default desktop padding (vertical 100px, horizontal 5vw)
+    background-color: $bg-color; // Example: If the section itself has a background
+    color: $main-text; // Example: If the text color is defined here
+
+    // Ensure space between SectionHeader and the paragraph
+    // Assuming SectionHeader applies as a direct child of .about-section
+    .section-header {
+      margin-bottom: 48px; // Fixed margin for desktop, will make responsive below
+    }
+
+    p {
+        font-size: 70px; // Your original fixed font size for desktop
+        line-height: 1.12;
+        margin: 0 auto; // Remove default paragraph margins, center it
+        max-width: 1200px; // Set a max-width for readability on very wide screens
+        text-align: left;
     }
 }
 
 .line-mask {
-  overflow: hidden; // KEY for the cut-off effect
+  overflow: hidden; // KEY for the cut-off effect (must be preserved for the animation)
   display: block;   // Needed to wrap the lines properly
+}
+
+// Media Queries for About Section Responsiveness
+
+// Adjustments for very large screens (e.g., if you want the text to get even bigger than 70px)
+// OR if you want to explicitly cap it to 70px for certain screen sizes
+@media (min-width: 1441px) {
+    .about-section {
+        p {
+            font-size: 80px; // Example: make it slightly larger on huge screens
+            max-width: 1400px; // Increase max-width for readability on massive screens
+        }
+    }
+}
+
+// Medium screens (e.g., Tablets, small laptops)
+@media (max-width: 1024px) {
+    .about-section {
+        padding: 80px 4vw; // Adjust padding: smaller vertical, slightly tighter horizontal
+        .section-header {
+            margin-bottom: 40px; // Reduce margin
+        }
+        p {
+            font-size: 50px; // Reduce font size for tablets
+            max-width: 90%; // Allow it to take more width on medium screens
+        }
+    }
+}
+
+// Small screens (e.g., Larger phones in landscape, smaller tablets)
+@media (max-width: 768px) {
+    .about-section {
+        padding: 60px 3vw; // Adjust padding: smaller vertical, tighter horizontal
+        .section-header {
+            margin-bottom: 30px; // Reduce margin further
+        }
+        p {
+            font-size: 36px; // Significant reduction for phones
+            line-height: 1.2; // Slightly more line-height for readability on smaller fonts
+            max-width: 100%; // Let it take full width (minus the section's own padding)
+        }
+    }
+}
+
+// Very small screens (e.g., Phones in portrait)
+@media (max-width: 480px) {
+    .about-section {
+        padding: 40px 2vw; // Minimal padding
+        .section-header {
+            margin-bottom: 20px; // Smallest margin
+        }
+        p {
+            font-size: 24px; // Final reduction for very small phones
+            line-height: 1.3; // More line-height for better readability on tiny screens
+        }
+    }
 }

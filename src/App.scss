@@ -1,29 +1,107 @@
+// GLOBAL IMPORTS AND VARIABLES
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@100;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@100;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@100;700&display=swap"); // Corrected to Bodoni Moda
 
 $bg-color: #0A0A0A;
 $main-text : #E0E0E0;
 
+// BASE STYLES AND RESETS
+*,
+*::before,
+*::after {
+  box-sizing: border-box; // Essential for responsive layouts
+}
+
+html {
+  font-size: 16px; // Base font size for 'rem' units. 1rem = 16px on desktop.
+  scroll-behavior: smooth;
+  // Ensure no unwanted overflow on HTML element, especially with custom scroll.
+  // If you are using a custom scroller (like a #main-container with overflow: scroll),
+  // then html and body should typically have overflow: hidden;
+  // If not using custom scroller, leave default or only hide overflow-x
+  overflow-x: hidden;
+}
 
 body {
+  margin: 0;
+  padding: 0;
   font-family: "Poppins", sans-serif;
-  cursor: none;
-
+  cursor: none; // Custom cursor, consider touch device handling
   background-color: $bg-color;
   color: $main-text;
+  line-height: 1.5; // Good default for readability
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // If a custom scroll container is NOT used, ensure body doesn't overflow horizontally.
+  overflow-x: hidden;
 }
 
+// Custom Cursor considerations for responsiveness
+@media (pointer: coarse) { // Targets devices with touchscreens (e.g., phones, tablets)
+  body {
+    cursor: auto !important; // Revert to default cursor on touch devices
+  }
+}
+
+// MAIN CONTENT CONTAINER
 .main-container{
-  padding: 0 5vw;
+  padding: 0 5vw; // Fluid horizontal padding
+  // If this is your custom scroll container (e.g., replacing locomotive scroll body behavior)
+  // you might need something like:
+  // min-height: 100vh; // Ensure it's at least viewport height
+  // overflow-y: scroll; // Allows vertical scrolling within this container
+  // -webkit-overflow-scrolling: touch; // For smooth scrolling on iOS
+  // width: 100vw; // Ensure it takes full viewport width
 }
 
+// SECTION PADDING
 section{
-  padding: 100px 0;
+  padding: 100px 0; // Fixed vertical padding, adjust with media queries below
 }
 
+// MEDIA QUERIES FOR GLOBAL ADJUSTMENTS
+
+// Medium screens (e.g., Tablets, small laptops)
+@media (max-width: 1024px) {
+  html {
+    font-size: 15px; // Slightly smaller base font size
+  }
+  section {
+    padding: 80px 0; // Reduce section vertical padding
+  }
+}
+
+// Small screens (e.g., Larger phones in landscape, smaller tablets)
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; // Further reduced base font size
+  }
+  .main-container {
+    padding: 0 4vw; // Slightly less fluid padding to prevent too much empty space
+  }
+  section {
+    padding: 60px 0; // Further reduce section vertical padding
+  }
+}
+
+// Very small screens (e.g., Phones)
+@media (max-width: 480px) {
+  html {
+    font-size: 13px; // Smallest base font size
+  }
+  .main-container {
+    padding: 0 3vw; // Even less padding
+  }
+  section {
+    padding: 40px 0; // Minimal section vertical padding
+  }
+}
+
+
+// LOADER WRAPPER STYLES (Specific adjustments for loader text)
 .loader-wrapper{
   display: flex;
   align-items: center;
@@ -31,26 +109,51 @@ section{
   flex-direction: column;
   background-color: #191919;
   color: #E0E0E0;
-
+  // Ensure the loader takes full viewport
+  position: fixed; // Or absolute if it's part of normal flow and you control scroll
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100; // High z-index to be on top
 
   h1{
-    font-size: 1.5vw;
+    font-size: 1.5vw; // Starts fluid
     text-transform: uppercase;
     font-family: "Bai Jamjuree", sans-serif;
     font-weight: 600;
   }
   h2{
-    font-size: 1.5vw;
+    font-size: 1.5vw; // Starts fluid
     text-transform: uppercase;
-    font-family: "Badoni Moda", sans-serif;
+    // Corrected typo from "Badoni Moda" to "Bodoni Moda"
+    font-family: "Bodoni Moda", serif; // Added serif fallback
     font-style: italic;
     margin-top: 10px;
     font-weight: 600;
   }
+
+  // Loader text responsiveness
+  @media (max-width: 768px) {
+    h1, h2 {
+      font-size: 3.5vw; // Increase vw on smaller screens
+    }
+  }
+  @media (max-width: 480px) {
+    h1, h2 {
+      font-size: 5.5vw; // Even larger vw for very small screens
+    }
+  }
+  @media (max-width: 320px) { // For extremely small phone screens
+    h1, h2 {
+      font-size: 6.5vw;
+    }
+  }
 }
 
+// ABSOLUTE POSITIONING UTILITY (Keep as is unless issues arise)
 .absolute{
-  position: fixed;
+  position: fixed; // Changed from absolute to fixed for more predictable overlay behavior
   top:0;
   right:0;
   left:0;
