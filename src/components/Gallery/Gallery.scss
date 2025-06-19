@@ -1,10 +1,11 @@
-.gallery-wrap{
+.gallery-wrap {
     background: #282828;
     margin-left: -5vw;
     margin-right: -5vw;
-    position: relative;
+    position: relative; // Needed for counter positioning
+    overflow: hidden; // Crucial to prevent horizontal scrollbar from showing due to `width: 400%`
 
-    .gallery-counter{
+    .gallery-counter {
         position: absolute;
         top: 10%;
         left: 100px;
@@ -12,13 +13,13 @@
         mix-blend-mode: difference;
         line-height: 60px;
         color: #F8F8F8;
-        font-family: 'Bai Jamjuree';
+        font-family: 'Bai Jamjuree', sans-serif;
         font-weight: 600;
         font-size: 16px;
         display: inline-block;
+        -webkit-font-smoothing: antialiased; // Added for smoother text rendering
 
-
-        .divider{
+        .divider {
             content: '';
             background-color: white;
             width: 6.25vw;
@@ -28,76 +29,89 @@
         }
     }
 
-    .gallery-item-wrapper{
-        width: 100%;
-        height: 100%;
-        background: yellow;
-        display: grid;
-        grid-template-columns: 20vw 1fr 200px;
-        aspect-ratio: 16/9;
-        position: relative;
-    }
-    .gallery{
+    .gallery {
         height: 80vh;
         padding: 10vh 0;
-        width: 400%;
+        width: 400%; // Important: This makes the container 4 times the viewport width
         display: flex;
-        flex-wrap: nowrap;
-        // background: red;
+        flex-wrap: nowrap; // Ensures items stay in a single row
+        // background: red; // For debugging, remove later
     }
-    .gallery-item{
+
+    .gallery-item-wrapper {
+        width: 100%; // Each wrapper takes 100% of the parent's (gallery) width
+        height: 100%;
+        // background: yellow; // For debugging, remove later
+        display: grid;
+        grid-template-columns: 20vw 1fr 200px; // Layout columns for info/image/empty space
+        aspect-ratio: 16/9; // Maintain aspect ratio for items
+        position: relative;
+
+        &.is-reveal {
+            .gallery-item-image {
+                transform: scale(1);
+                filter: none;
+            }
+        }
+    }
+
+    .gallery-item {
         width: 100%;
         height: 100%;
         position: relative;
         will-change: transform;
     }
 
-    .gallery-item-info{
+    .gallery-item-info {
         position: absolute;
-        bottom: 0;
-        left: 0;
+        bottom: 10%; // Adjusted from 0 for better spacing
+        left: 0; // Ensures it starts at the beginning of its column
         z-index: 1;
-        transform: translateX(-20%);
-        columns: #F8F8F8;
+        transform: translateX(-20%); // Initial position, consider adjusting
+        color: #F8F8F8; // Changed from 'columns' to 'color'
+
+        .gallery-info-title {
+            line-height: 6vw;
+            font-family: "Bai Jamjuree", sans-serif;
+            font-weight: 600;
+            font-size: 6vw; // Adjusted for larger impact, similar to tutorial
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .gallery-info-subtitle {
+            position: relative;
+            line-height: 6vw;
+            font-family: "Bodoni Moda", serif; // Corrected typo: "Bododi Moda" to "Bodoni Moda"
+            color: transparent;
+            font-weight: 400;
+            margin: 0;
+            font-size: 6vw; // Adjusted for larger impact
+            -webkit-text-stroke: 2px #F8F8F8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .gallery-info-category {
+            position: relative;
+            line-height: 24px;
+            font-family: "Bai Jamjuree", sans-serif;
+            font-weight: 400;
+            font-size: 24px;
+            margin-top: 2vh;
+            -webkit-font-smoothing: antialiased;
+        }
     }
 
-    .gallery-info-title{
-        line-height: 6vw;
-        font-family: "Bai Jamjuree";
-        font-weight: 600;
-        font-size: 4vw;
-    }
-
-    .gallery-info-subtitle{
-        position: relative;
-        line-height: 6vw;
-        font-family: "Bododi Moda";
-        color: transparent;
-        font-weight: 400;
-        margin: 0;
-        font-size: 4vw;
-        -webkit-text-stroke: 2px #F8F8F8;
-    }
-    .gallery-info-category{
-        position: relative;
-        line-height: 24px;
-        font-family: "Bai Jamjuree";
-        font-weight: 400;
-        font-size: 24px;
-        margin-top: 2vh;
-    }
-
-    .gallery-item-image{
+    .gallery-item-image {
         background-size: cover;
         background-position: center;
         transform-origin: center;
         width: 100%;
         height: 100%;
         will-change: transform;
-        transform: scale(1);
+        transform: scale(0.7); // Initial smaller scale
+        transition: all 1.5s cubic-bezier(0.77, 0, 0.175, 1); // Smooth transition
+        filter: grayscale(100%) sepia(20%) brightness(80%); // Initial filter
         z-index: 1;
-        opacity: 100;
-        display: block;
-
+        display: block; // Ensures it takes up space correctly
     }
 }

@@ -13,6 +13,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { SplitText } from "gsap/SplitText";
+import CustomCursor from "./components/CustomCursor/CustomCursor";
 
 gsap.registerPlugin(ScrollTrigger,ScrollSmoother,SplitText);
 
@@ -51,6 +52,7 @@ const App = () =>{
     return (
 
       <>
+      <CustomCursor />
       {preloader? (
         <div className="loader-wrapper absolute">
           <h1>Echos And Elegance</h1>
