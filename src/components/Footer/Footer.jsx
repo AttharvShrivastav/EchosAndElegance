@@ -23,7 +23,7 @@ function Footer() {
       stagger: 0.1,
       scrollTrigger: {
         trigger: locationRef.current,
-        start: 'top 50%',
+        start: 'top 30%',
         toggleActions: 'play none none reverse',
       },
     });

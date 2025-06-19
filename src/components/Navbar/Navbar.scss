@@ -12,3 +12,13 @@
     font-weight: 600;
     text-transform: uppercase;
 }
+
+.logo{
+    height: 80px;
+    width: 80px;
+    overflow: hidden;
+}
+
+.logo img{
+    object-fit: cover;
+}

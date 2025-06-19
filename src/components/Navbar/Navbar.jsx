@@ -6,7 +6,7 @@ function Navbar() {
     <div className="navbar" data-scroll-section> 
         <div>Menu</div>
         <div>Echoes And Elegance</div>
-        <div><img src={logo} alt="" /></div>
+        <div>Music</div>
     </div>
   )
 }
