@@ -38,11 +38,7 @@ function About() {
     <section className="about-section" data-scroll-section>
       <SectionHeader title="About" />
       <p className="headline">
-        Echoes & Elegance is more than an aesthetic; it's a philosophy. Born from a
-        desire to find beauty in unexpected places, and to articulate the resilience
-        of the human spirit through art and design. We believe in craftsmanship that
-        tells a story, and aesthetics that evoke emotion. Join us in this journey of
-        rediscovery.
+        Echoes & Elegance is more than an aesthetic; it's a philosophy. Born from a desire to find beauty in unexpected places, and to articulate the resilience of the human spirit through art and design. We believe in craftsmanship that tells a story, and aesthetics that evoke emotion. Join us in this journey of rediscovery.
       </p>
     </section>
   );
