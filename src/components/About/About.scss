@@ -1,0 +1,12 @@
+.about-section{
+    p{
+        font-size: 70px;
+        line-height: 1.12;
+
+    }
+}
+
+.line-mask {
+  overflow: hidden; // KEY for the cut-off effect
+  display: block;   // Needed to wrap the lines properly
+}
